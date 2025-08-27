@@ -19,37 +19,33 @@ const LoginPage = () => {
   const [formPassword, setFormPassword] = useState('');
   const [errEmail, setErrEmail] = useState('');
   const [errPassWord, seterrPassWord] = useState('');
-  const [checkErr, setCheckErr] = useState(true);
+  const [checkErr, setCheckErr] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
-    let checkEmail = true;
-    let checkPassword = true;
+    let check = false;
     if (formEmail.length === 0) {
       setErrEmail("");
+      check = true;
     } else if (!emailRegex.test(formEmail)) {
       setErrEmail("Your email is incorrect");
+      check = true;
     } else {
       setErrEmail("");
-      checkEmail = false;
     }
     if (formPassword.length < 6) {
       seterrPassWord('Password must be more than 6 characters.')
+      check = true;
     } else {
       seterrPassWord('');
-      checkPassword = false;
     }
-    if (checkEmail === false && checkPassword === false) {
-      setCheckErr(false);
-    } else {
-      setCheckErr(true);
-    }
+    setCheckErr(check)
   }, [formEmail, formPassword])
 
 
   function handleLogin() {
-    console.log("email" ,formEmail,"password", formPassword);
+    console.log("email", formEmail, "password", formPassword);
   }
 
   return (

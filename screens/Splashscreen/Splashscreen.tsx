@@ -6,9 +6,6 @@ const screenHeight = Dimensions.get('screen').height;
 
 const Splashscreen = () => {
 
-
-
-
     return (
         <ImageBackground style={styles.imgBackground} source={require('../../assets/images/Splashscreen/imgeBackgroud.png')} >
             <View style={styles.box}>

@@ -1,12 +1,10 @@
-import Splashscreen from '@/screens/Splashscreen/Splashscreen';
+import LoginPage from '@/screens/login/LoginPage';
 import { StyleSheet } from 'react-native';
 
 
 export default function HomeScreen() {
   return (
-    
-      <Splashscreen />
-   
+      <LoginPage/>
   );
 }
 

@@ -24,25 +24,33 @@ const LoginPage = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
-    if (emailRegex.test(formEmail) !== true && formEmail.length >= 0) {
-      setErrEmail("Your email is incorrect")
-      
-    }else {
-      setErrEmail('');
-      setCheckErr(false)
+    let checkEmail = true;
+    let checkPassword = true;
+    if (formEmail.length === 0) {
+      setErrEmail("");
+    } else if (!emailRegex.test(formEmail)) {
+      setErrEmail("Your email is incorrect");
+    } else {
+      setErrEmail("");
+      checkEmail = false;
     }
-  }, [formEmail])
-
-  useEffect(() => {
     if (formPassword.length < 6) {
       seterrPassWord('Password must be more than 6 characters.')
-      setCheckErr(true)
     } else {
       seterrPassWord('');
-      setCheckErr(false)
+      checkPassword = false;
     }
-  }, [formPassword])
+    if (checkEmail === false && checkPassword === false) {
+      setCheckErr(false);
+    } else {
+      setCheckErr(true);
+    }
+  }, [formEmail, formPassword])
 
+
+  function handleLogin() {
+    console.log("email" ,formEmail,"password", formPassword);
+  }
 
   return (
     <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
@@ -158,7 +166,7 @@ const LoginPage = () => {
               backgroundColor: checkErr ? '#281e43ff' : '#6938EF',
               borderRadius: 8 * scale,
               marginTop: 24 * scale,
-            }} disabled={checkErr} >
+            }} onPress={handleLogin} disabled={checkErr} >
               <Text style={styles.textbtnSign}>Sign in</Text>
             </TouchableOpacity>
 

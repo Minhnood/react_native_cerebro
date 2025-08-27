@@ -74,7 +74,7 @@ const LoginPage = () => {
               <Text style={styles.textbtnLoginClick}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnLogin}>
-              <Text style={styles.textbtnLogin}>Sign up</Text>
+              <Text style={styles.textbtnLogin}>Sign up KKKKKKKKKKK</Text>
             </TouchableOpacity>
           </View>
 

@@ -34,7 +34,10 @@ const LoginPage = () => {
     } else {
       setErrEmail("");
     }
-    if (formPassword.length < 6) {
+    if (formPassword.length === 0) {
+      seterrPassWord("");
+      check = true;
+    } else if (formPassword.length < 6) {
       seterrPassWord('Password must be more than 6 characters.')
       check = true;
     } else {
@@ -122,7 +125,7 @@ const LoginPage = () => {
               </Text>
               <Text
                 style={{
-                  display: formPassword.length > 0 ? "flex" : "none",
+                  display: errPassWord.length > 0 ? "flex" : "none",
                   marginTop: 6 * scale,
                   color: "red",
                   fontSize: 14 * scale,

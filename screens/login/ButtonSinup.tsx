@@ -1,43 +1,10 @@
-import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
-function FromSinup() {
-
-    const [formEmail, setFormEmail] = useState('');
-    const [formPassword, setFormPassword] = useState('');
-    const [errEmail, setErrEmail] = useState('');
-    const [errPassWord, seterrPassWord] = useState('');
-    const [checkErr, setCheckErr] = useState(false);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    useEffect(() => {
-        let check = false;
-        if (formEmail.length === 0) {
-            setErrEmail("");
-            check = true;
-        } else if (!emailRegex.test(formEmail)) {
-            setErrEmail("Your email is incorrect");
-            check = true;
-        } else {
-            setErrEmail("");
-        }
-        if (formPassword.length === 0) {
-            seterrPassWord("");
-            check = true;
-        } else if (formPassword.length < 6) {
-            seterrPassWord('Password must be more than 6 characters.')
-            check = true;
-        } else {
-            seterrPassWord('');
-        }
-        setCheckErr(check)
-    }, [formEmail, formPassword])
-
+function ButtonSinup({ checkErr, formPassword, formEmail }: { checkErr: boolean, formPassword: string, formEmail: string }) {
 
     function handleLogin() {
         console.log("email", formEmail, "password", formPassword);
@@ -45,82 +12,19 @@ function FromSinup() {
 
     return (
         <>
-            {/* Email */}
-            <View >
-                <Text
-                    style={{
-                        color: "#FFFFFF",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                    }}
-                >
-                    Email
-                </Text>
-                <Text
-                    style={{
-                        display: errEmail.length > 0 ? "flex" : "none",
-                        marginTop: 6 * scale,
-                        color: "red",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                    }}
-                >
-                    {errEmail}
-                </Text>
-                <TextInput
-                    style={styles.TextInputEmail}
-                    placeholder="Enter your email"
-                    placeholderTextColor="#98A2B3"
-                    onChangeText={newText => setFormEmail(newText)}
-                />
-            </View>
-
-            {/* Password */}
-            <View style={{ marginTop: 20 * scale }}>
-                <Text
-                    style={{
-                        color: "#FFFFFF",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                    }}
-                >
-                    Password
-                </Text>
-                <Text
-                    style={{
-                        display: errPassWord.length > 0 ? "flex" : "none",
-                        marginTop: 6 * scale,
-                        color: "red",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                    }}
-                >
-                    {errPassWord}
-                </Text>
-                <TextInput
-                    style={styles.TextInputEmail}
-                    secureTextEntry={true}
-                    placeholder="*********"
-                    placeholderTextColor="#98A2B3"
-                    onChangeText={newText => setFormPassword(newText)}
-                />
-                <Text
-                    style={{
-                        marginTop: 6 * scale,
-                        color: "#D0D5DD",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                    }}
-                >
-                    Must be at least 8 characters.
-                </Text>
-            </View>
-
+            {/* Password rule note */}
+            <Text
+                style={{
+                    marginTop: 6 * scale,
+                    color: "#D0D5DD",
+                    fontSize: 14 * scale,
+                    lineHeight: 20 * scale,
+                    fontWeight: "500",
+                }}
+            >
+                Must be at least 8 characters.
+            </Text>
+            
             {/* Button Sign In */}
             <TouchableOpacity style={{
                 width: "100%",
@@ -255,4 +159,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FromSinup;
+export default ButtonSinup;

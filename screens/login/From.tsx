@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
+import ButtonLogin from "./ButtonLogin";
+import ButtonSinup from "./ButtonSinup";
 
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
-
-function FromLogin() {
-
+export default function From({sumitFrom}: {sumitFrom: boolean}) {
     const [formEmail, setFormEmail] = useState('');
     const [formPassword, setFormPassword] = useState('');
     const [errEmail, setErrEmail] = useState('');
@@ -38,10 +38,7 @@ function FromLogin() {
         setCheckErr(check)
     }, [formEmail, formPassword])
 
-
-    function handleLogin() {
-        console.log("email", formEmail, "password", formPassword);
-    }
+    const button = sumitFrom == true ? <ButtonLogin checkErr={checkErr} formPassword={formPassword} formEmail={formEmail}/> : <ButtonSinup checkErr={checkErr} formPassword={formPassword} formEmail={formEmail}/>;
 
     return (
         <>
@@ -108,32 +105,9 @@ function FromLogin() {
                     placeholderTextColor="#98A2B3"
                     onChangeText={newText => setFormPassword(newText)}
                 />
-                <Text
-                    style={{
-                        marginTop: 6 * scale,
-                        color: "#FFFFFF",
-                        fontSize: 14 * scale,
-                        lineHeight: 20 * scale,
-                        fontWeight: "500",
-                        textAlign: "right",
-                        textDecorationLine: "underline",
-                    }}
-                >
-                    Forgot password
-                </Text>
             </View>
 
-            {/* Button Sign In */}
-            <TouchableOpacity style={{
-                width: "100%",
-                paddingVertical: 10 * scale,
-                alignItems: "center",
-                backgroundColor: checkErr ? '#281e43ff' : '#6938EF',
-                borderRadius: 8 * scale,
-                marginTop: 24 * scale,
-            }} onPress={handleLogin} disabled={checkErr} >
-                <Text style={styles.textbtnSign}>Sign in</Text>
-            </TouchableOpacity>
+            {button}
         </>
     )
 }
@@ -256,5 +230,3 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-
-export default FromLogin;

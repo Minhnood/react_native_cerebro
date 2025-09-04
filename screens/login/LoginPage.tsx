@@ -9,17 +9,13 @@ import {
   View
 } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import FromSinup from "./FromSinup";
-import FromLogin from "./fromLogin";
+import From from "./From";
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
 const LoginPage = () => {
   const [sumitFrom, setSumitFrom] = useState(true);
-
-  const from = sumitFrom == true ? <FromLogin/> :<FromSinup/>;
-
 
   return (
     <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
@@ -49,7 +45,7 @@ const LoginPage = () => {
           </View>
 
           <View>
-              {from}
+              <From sumitFrom={sumitFrom}/>
             {/* Or login with */}
             <View style={styles.ActionsText}>
               <View style={styles.lineHigth}></View>
@@ -100,13 +96,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   box: {
-    height: "20%",
+    height: "30%",
     justifyContent: "flex-start",
     alignItems: "center",
     marginTop: height > 640 ? 80 * scale : 30 * scale,
   },
   box1: {
-    height: "80%",
+    height: "70%",
     justifyContent: "flex-start",
     paddingTop: height > 640 ? 24 * scale : 16 * scale,
     paddingBottom: 64 * scale,

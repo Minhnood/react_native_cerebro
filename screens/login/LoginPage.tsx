@@ -1,55 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View
 } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Form from "./Form";
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
 const LoginPage = () => {
-  const [formEmail, setFormEmail] = useState('');
-  const [formPassword, setFormPassword] = useState('');
-  const [errEmail, setErrEmail] = useState('');
-  const [errPassWord, seterrPassWord] = useState('');
-  const [checkErr, setCheckErr] = useState(false);
+  const PAGE_SIGNUP = "SIGNUP";
+  const PAGE_LOGIN = "LOGIN";
+  const [currentPage, setcurrentPage] = useState<"SIGNUP" | "LOGIN">(PAGE_SIGNUP);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  useEffect(() => {
-    let check = false;
-    if (formEmail.length === 0) {
-      setErrEmail("");
-      check = true;
-    } else if (!emailRegex.test(formEmail)) {
-      setErrEmail("Your email is incorrect");
-      check = true;
-    } else {
-      setErrEmail("");
-    }
-    if (formPassword.length === 0) {
-      seterrPassWord("");
-      check = true;
-    } else if (formPassword.length < 6) {
-      seterrPassWord('Password must be more than 6 characters.')
-      check = true;
-    } else {
-      seterrPassWord('');
-    }
-    setCheckErr(check)
-  }, [formEmail, formPassword])
-
-
-  function handleLogin() {
-    console.log("email", formEmail, "password", formPassword);
-  }
 
   return (
     <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
@@ -70,116 +39,21 @@ const LoginPage = () => {
         <View style={styles.box1}>
           {/* Tab */}
           <View style={styles.tab}>
-            <TouchableOpacity style={styles.btnLoginClick}>
-              <Text style={styles.textbtnLoginClick}>Login</Text>
+            <TouchableOpacity onPress={() => setcurrentPage(PAGE_LOGIN)} style={currentPage == PAGE_LOGIN ? styles.btnLoginClick : styles.btnLogin}>
+              <Text style={currentPage == PAGE_LOGIN ? styles.textbtnLoginClick : styles.textbtnLogin}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnLogin}>
-              <Text style={styles.textbtnLogin}>Sign up</Text>
+            <TouchableOpacity onPress={() => setcurrentPage(PAGE_SIGNUP)} style={currentPage == PAGE_SIGNUP ? styles.btnLoginClick : styles.btnLogin}>
+              <Text style={currentPage == PAGE_SIGNUP ? styles.textbtnLoginClick : styles.textbtnLogin}>Sign up</Text>
             </TouchableOpacity>
           </View>
 
           <View>
-            {/* Email */}
-            <View >
-              <Text
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: 14 * scale,
-                  lineHeight: 20 * scale,
-                  fontWeight: "500",
-                }}
-              >
-                Email
-              </Text>
-              <Text
-                style={{
-                  display: errEmail.length > 0 ? "flex" : "none",
-                  marginTop: 6 * scale,
-                  color: "red",
-                  fontSize: 14 * scale,
-                  lineHeight: 20 * scale,
-                  fontWeight: "500",
-                }}
-              >
-                {errEmail}
-              </Text>
-              <TextInput
-                style={styles.TextInputEmail}
-                placeholder="Enter your email"
-                placeholderTextColor="#98A2B3"
-                onChangeText={newText => setFormEmail(newText)}
-              />
-            </View>
-
-            {/* Password */}
-            <View style={{ marginTop: 20 * scale }}>
-              <Text
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: 14 * scale,
-                  lineHeight: 20 * scale,
-                  fontWeight: "500",
-                }}
-              >
-                Password
-              </Text>
-              <Text
-                style={{
-                  display: errPassWord.length > 0 ? "flex" : "none",
-                  marginTop: 6 * scale,
-                  color: "red",
-                  fontSize: 14 * scale,
-                  lineHeight: 20 * scale,
-                  fontWeight: "500",
-                }}
-              >
-                {errPassWord}
-              </Text>
-              <TextInput
-                style={styles.TextInputEmail}
-                secureTextEntry={true}
-                placeholder="*********"
-                placeholderTextColor="#98A2B3"
-                onChangeText={newText => setFormPassword(newText)}
-              />
-              <Text
-                style={{
-                  marginTop: 6 * scale,
-                  color: "#FFFFFF",
-                  fontSize: 14 * scale,
-                  lineHeight: 20 * scale,
-                  fontWeight: "500",
-                  textAlign: "right",
-                  textDecorationLine: "underline",
-                }}
-              >
-                Forgot password
-              </Text>
-            </View>
-
-            {/* Button Sign In */}
-            <TouchableOpacity style={{
-              width: "100%",
-              paddingVertical: 10 * scale,
-              alignItems: "center",
-              backgroundColor: checkErr ? '#281e43ff' : '#6938EF',
-              borderRadius: 8 * scale,
-              marginTop: 24 * scale,
-            }} onPress={handleLogin} disabled={checkErr} >
-              <Text style={styles.textbtnSign}>Sign in</Text>
-            </TouchableOpacity>
-
+            <Form currentPage={currentPage} />
             {/* Or login with */}
             <View style={styles.ActionsText}>
               <View style={styles.lineHigth}></View>
               <Text
-                style={{
-                  color: "#344054",
-                  fontSize: 12 * scale,
-                  lineHeight: 18 * scale,
-                  fontWeight: "400",
-                  marginHorizontal: 10 * scale,
-                }}
+                style={styles.textLineHigth}
               >
                 Or login with
               </Text>
@@ -215,17 +89,24 @@ const LoginPage = () => {
 };
 
 const styles = StyleSheet.create({
+  textLineHigth: {
+    color: "#344054",
+    fontSize: 12 * scale,
+    lineHeight: 18 * scale,
+    fontWeight: "400",
+    marginHorizontal: 10 * scale,
+  },
   imgBackground: {
     flex: 1,
   },
   box: {
-    height: "20%",
+    height: "30%",
     justifyContent: "flex-start",
     alignItems: "center",
     marginTop: height > 640 ? 80 * scale : 30 * scale,
   },
   box1: {
-    height: "80%",
+    height: "70%",
     justifyContent: "flex-start",
     paddingTop: height > 640 ? 24 * scale : 16 * scale,
     paddingBottom: 64 * scale,

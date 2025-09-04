@@ -9,13 +9,16 @@ import {
   View
 } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import From from "./From";
+import Form from "./Form";
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
 const LoginPage = () => {
-  const [sumitFrom, setSumitFrom] = useState(true);
+  const PAGE_SIGNUP = "SIGNUP";
+  const PAGE_LOGIN = "LOGIN";
+  const [currentPage, setcurrentPage] = useState<"SIGNUP" | "LOGIN">(PAGE_SIGNUP);
+
 
   return (
     <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
@@ -36,27 +39,21 @@ const LoginPage = () => {
         <View style={styles.box1}>
           {/* Tab */}
           <View style={styles.tab}>
-            <TouchableOpacity onPress={() => setSumitFrom(true)} style={sumitFrom == true ? styles.btnLoginClick : styles.btnLogin}>
-              <Text style={sumitFrom == true ? styles.textbtnLoginClick : styles.textbtnLogin}>Login</Text>
+            <TouchableOpacity onPress={() => setcurrentPage(PAGE_LOGIN)} style={currentPage == PAGE_LOGIN ? styles.btnLoginClick : styles.btnLogin}>
+              <Text style={currentPage == PAGE_LOGIN ? styles.textbtnLoginClick : styles.textbtnLogin}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSumitFrom(false)} style={sumitFrom == false ? styles.btnLoginClick : styles.btnLogin}>
-              <Text style={sumitFrom == false ? styles.textbtnLoginClick : styles.textbtnLogin}>Sign up</Text>
+            <TouchableOpacity onPress={() => setcurrentPage(PAGE_SIGNUP)} style={currentPage == PAGE_SIGNUP ? styles.btnLoginClick : styles.btnLogin}>
+              <Text style={currentPage == PAGE_SIGNUP ? styles.textbtnLoginClick : styles.textbtnLogin}>Sign up</Text>
             </TouchableOpacity>
           </View>
 
           <View>
-              <From sumitFrom={sumitFrom}/>
+            <Form currentPage={currentPage} />
             {/* Or login with */}
             <View style={styles.ActionsText}>
               <View style={styles.lineHigth}></View>
               <Text
-                style={{
-                  color: "#344054",
-                  fontSize: 12 * scale,
-                  lineHeight: 18 * scale,
-                  fontWeight: "400",
-                  marginHorizontal: 10 * scale,
-                }}
+                style={styles.textLineHigth}
               >
                 Or login with
               </Text>
@@ -92,6 +89,13 @@ const LoginPage = () => {
 };
 
 const styles = StyleSheet.create({
+  textLineHigth: {
+    color: "#344054",
+    fontSize: 12 * scale,
+    lineHeight: 18 * scale,
+    fontWeight: "400",
+    marginHorizontal: 10 * scale,
+  },
   imgBackground: {
     flex: 1,
   },

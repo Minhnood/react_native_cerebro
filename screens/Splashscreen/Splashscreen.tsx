@@ -2,7 +2,6 @@ import React from "react";
 import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 
 const screenHeight = Dimensions.get('screen').height;
-// alert(screenHeight);
 
 const Splashscreen = () => {
 
@@ -30,10 +29,7 @@ const styles = StyleSheet.create({
         width: screenHeight > 640 ? 102 : 82,
         height: screenHeight > 640 ? 100 : 80,
     },
-    // imgLogo2: {
-    //     width: 82,
-    //     height: 80,
-    // },
+    
     textH1: {
         fontWeight: 400,
         fontSize: screenHeight > 640 ? 36 : 29,

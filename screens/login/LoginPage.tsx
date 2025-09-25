@@ -17,8 +17,8 @@ const scale = width / baseWidth;
 const LoginPage = () => {
   const PAGE_SIGNUP = "SIGNUP";
   const PAGE_LOGIN = "LOGIN";
-  const [currentPage, setcurrentPage] = useState<"SIGNUP" | "LOGIN">(PAGE_SIGNUP);
-
+  const [currentPage, setcurrentPage] = useState<"SIGNUP" | "LOGIN">(PAGE_LOGIN);
+  const [forgotPasswor, setForgotPasswor] = useState(false);
 
   return (
     <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
@@ -48,7 +48,7 @@ const LoginPage = () => {
           </View>
 
           <View>
-            <Form currentPage={currentPage} />
+            <Form currentPage={currentPage} setForgotPasswor={setForgotPasswor}/>
             {/* Or login with */}
             <View style={styles.ActionsText}>
               <View style={styles.lineHigth}></View>

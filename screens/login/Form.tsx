@@ -6,7 +6,7 @@ import ButtonLogin from "./ButtonLogin";
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
-export default function Form({ currentPage }: { currentPage: string }) {
+export default function Form({ currentPage, setForgotPasswor }: { currentPage: string , setForgotPasswor: (value: boolean) => void}) {
     const [formEmail, setFormEmail] = useState('');
     const [formPassword, setFormPassword] = useState('');
     const [errEmail, setErrEmail] = useState('');
@@ -37,6 +37,10 @@ export default function Form({ currentPage }: { currentPage: string }) {
         }
         setCheckErr(check)
     }, [formEmail, formPassword])
+
+    function forgotPassword() {
+        
+    }
 
     return (
         <>
@@ -96,6 +100,7 @@ export default function Form({ currentPage }: { currentPage: string }) {
             </View>
             {currentPage == "LOGIN" ? <Text
                 style={styles.textLinkPassword}
+                onPress={()=> setForgotPasswor(true) }
             >
                 Forgot password
             </Text> :

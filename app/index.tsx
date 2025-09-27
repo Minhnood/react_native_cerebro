@@ -1,12 +1,21 @@
+import HomeMe from '@/screens/home/HomeScreen';
 import LoginPage from '@/screens/login/LoginPage';
-import { StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 
-export default function HomeScreen() {
+function RootStack() {
   return (
-      <LoginPage/>
+    <Stack.Navigator initialRouteName="login">
+      <Stack.Screen name="login" component={LoginPage} />
+      <Stack.Screen name="Home" component={HomeMe} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-});
+export default function App() {
+  return (
+      <RootStack />
+  );
+}

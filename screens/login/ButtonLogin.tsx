@@ -4,10 +4,11 @@ const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
-function ButtonLogin({ tile, checkErr, formPassword, formEmail }: {tile: String, checkErr: boolean, formPassword: string, formEmail: string }) {
+function ButtonLogin({ tile, checkErr, formPassword, formEmail, navigation }: {tile: String, checkErr: boolean, formPassword: string, formEmail: string, navigation: any }) {
 
     function handleLogin() {
         console.log("email", formEmail, "password", formPassword);
+        navigation.navigate('Home');
     }
 
     return (
@@ -21,7 +22,6 @@ function ButtonLogin({ tile, checkErr, formPassword, formEmail }: {tile: String,
             }} onPress={handleLogin} disabled={checkErr} >
                 <Text style={styles.textbtnSign}>{tile}</Text>
             </TouchableOpacity>
-        
     )
 }
 

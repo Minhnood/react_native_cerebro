@@ -6,7 +6,14 @@ import ButtonLogin from "./ButtonLogin";
 const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
-export default function Form({ currentPage, setForgotPasswor }: { currentPage: string , setForgotPasswor: (value: boolean) => void}) {
+
+type FormProps = {
+  currentPage: string;
+  setForgotPasswor: (value: boolean) => void;
+  navigation: any;
+};
+
+export default function Form({ currentPage, setForgotPasswor, navigation }: FormProps) {
     const [formEmail, setFormEmail] = useState('');
     const [formPassword, setFormPassword] = useState('');
     const [errEmail, setErrEmail] = useState('');
@@ -109,7 +116,7 @@ export default function Form({ currentPage, setForgotPasswor }: { currentPage: s
                 >
                     Must be at least 8 characters.
                 </Text>}
-            <ButtonLogin tile={currentPage == "LOGIN" ? "Sign in" : "Create account"} checkErr={checkErr} formPassword={formPassword} formEmail={formEmail} />
+            <ButtonLogin tile={currentPage == "LOGIN" ? "Sign in" : "Create account"} checkErr={checkErr} formPassword={formPassword} formEmail={formEmail} navigation={navigation} />
         </>
     )
 }

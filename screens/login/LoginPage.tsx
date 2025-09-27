@@ -14,14 +14,14 @@ const { width, height } = Dimensions.get("window");
 const baseWidth = 375;
 const scale = width / baseWidth;
 
-const LoginPage = () => {
+function LoginPage({ navigation } : {navigation : any}) {
   const PAGE_SIGNUP = "SIGNUP";
   const PAGE_LOGIN = "LOGIN";
   const [currentPage, setcurrentPage] = useState<"SIGNUP" | "LOGIN">(PAGE_LOGIN);
   const [forgotPasswor, setForgotPasswor] = useState(false);
 
   return (
-    <KeyboardAwareScrollView enableOnAndroid style={styles.imgBackground}>
+    <KeyboardAwareScrollView enableOnAndroid>
       <ImageBackground
         style={styles.imgBackground}
         source={require("../../assets/images/Splashscreen/imgeBackgroud.png")}
@@ -48,7 +48,7 @@ const LoginPage = () => {
           </View>
 
           <View>
-            <Form currentPage={currentPage} setForgotPasswor={setForgotPasswor}/>
+            <Form currentPage={currentPage} setForgotPasswor={setForgotPasswor} navigation={navigation}/>
             {/* Or login with */}
             <View style={styles.ActionsText}>
               <View style={styles.lineHigth}></View>
